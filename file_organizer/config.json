@@ -1,0 +1,24 @@
+{
+  "scan_paths": [
+    "~/Downloads"
+  ],
+  "scan_mode": "top_level_only",
+  "description": "Only scans files directly in Downloads folder. ALL subdirectories are automatically skipped and never touched.",
+  "organization_rules": {
+    "Screenshots": "~/Pictures/Screenshots",
+    "Documents": "~/Documents/Organized",
+    "Images": "~/Pictures/Organized",
+    "Archives": "~/Documents/Archives",
+    "Installers": "~/Documents/Installers",
+    "Code": "~/Documents/Code",
+    "PDFs": "~/Documents/PDFs",
+    "Videos": "~/Movies/Organized",
+    "Audio": "~/Music/Organized",
+    "Spreadsheets": "~/Documents/Spreadsheets",
+    "Presentations": "~/Documents/Presentations"
+  },
+  "llm_provider": "openai",
+  "model": "gpt-4o-mini",
+  "delete_duplicates": false,
+  "auto_execute": false
+}

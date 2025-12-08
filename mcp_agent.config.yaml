@@ -1,0 +1,8 @@
+# MCP Agent Configuration
+name: file-organizer
+description: "Intelligent file organization system that scans, classifies, and organizes files"
+
+# MCP Servers
+# None needed - we provide MCP tools, we don't consume them
+# This app uses direct Python file operations (pathlib, shutil)
+servers: {}
