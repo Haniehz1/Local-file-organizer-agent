@@ -4,9 +4,10 @@ An intelligent file organization system built with the **mcp-agent framework**. 
 
 ## ✨ Features
 
-- 🔍 **Smart Scanning**: Recursively scans directories with SHA256 hash-based duplicate detection
-- 🏷️ **Intelligent Classification**: 11+ file categories with pattern and extension matching
+- 🔍 **Smart Scanning**: Top-level only scanning (protects project folders) with SHA256 duplicate detection
+- 🏷️ **Intelligent Classification**: 12+ file categories with pattern and extension matching
 - 📋 **Safe Organization**: Always shows plan before executing changes
+- ↩️ **Fully Reversible**: Backup manifests allow complete undo of all file moves
 - 🔧 **MCP Server**: Exposes all functionality as MCP tools for Claude Desktop
 - 🛡️ **Safety First**: Dry-run mode, collision handling, error recovery
 - ⚡ **mcp-agent Native**: Built using proper `@app.async_tool()` patterns
@@ -60,7 +61,9 @@ All functionality exposed as async MCP tools:
 3. **`propose_organization()`** - Generate an organization plan
 4. **`execute_plan(dry_run)`** - Execute the plan (dry-run safe!)
 5. **`get_summary()`** - Get markdown summary with stats
-6. **`reset_state()`** - Clear stored state
+6. **`list_backups()`** - List all available backup manifests
+7. **`restore_from_backup(manifest_path, dry_run)`** - Undo file moves from a backup
+8. **`reset_state()`** - Clear stored state
 
 ## 🤖 Claude Desktop Integration
 
@@ -106,9 +109,10 @@ Then ask Claude:
 ```
 file_organizer/
 ├── agents/              # Core logic
-│   ├── scanner.py      # Hash-based scanning
+│   ├── scanner.py      # Top-level scanning (protects folders)
 │   ├── classifier.py   # Rule-based classification
 │   ├── organizer.py    # Safe file operations
+│   ├── backup.py       # Reversibility & manifest management
 │   └── reporter.py     # Markdown generation
 ├── models/             # Pydantic data models
 │   └── file_metadata.py
@@ -134,10 +138,37 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 ## ✅ Safety Features
 
 - ✅ **Dry-run mode** - Test before executing
+- ✅ **Backup manifests** - Every move is recorded and reversible
+- ✅ **Top-level only** - Never touches project folders or subdirectories
 - ✅ **Collision handling** - Auto-rename on conflict
 - ✅ **Error recovery** - Continue after errors
 - ✅ **Never overwrite** - Existing files safe
 - ✅ **State management** - Track workflow progress
+
+### 🔄 Reversibility
+
+When you execute file moves (not dry-run), a backup manifest is automatically created:
+
+```json
+{
+  "timestamp": "20251208_143000",
+  "actions": [
+    {"action": "move", "source": "/Downloads/file.pdf", "destination": "~/Documents/PDFs/file.pdf"}
+  ]
+}
+```
+
+**To undo all changes:**
+```python
+# Via MCP tool
+restore_from_backup()  # Uses most recent backup
+
+# Or directly
+python -c 'from file_organizer.agents.backup import BackupManager;
+           BackupManager().restore_from_manifest("path/to/manifest.json", dry_run=False)'
+```
+
+Manifests are stored in `~/.file_organizer_backups/`
 
 ## 🎯 Example Workflow
 
