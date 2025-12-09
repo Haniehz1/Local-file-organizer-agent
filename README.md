@@ -40,12 +40,12 @@ Edit `file_organizer/config.json`:
 
 **Interactive Mode:**
 ```bash
-python main.py
+uv run main.py
 ```
 
 **MCP Server Mode (for Claude Desktop):**
 ```bash
-python main.py --server
+uv run  main.py --server
 ```
 
 ## 🔧 MCP Tools Exposed
