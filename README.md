@@ -17,9 +17,9 @@ An intelligent file organization system built with the **mcp-agent framework**. 
 ### 1. Install Dependencies
 
 ```bash
-pip install -r requirements.txt
-# or
-uv pip install -r requirements.txt
+pip install -e .
+# or with uv
+uv pip install -e .
 ```
 
 ### 2. Configure
@@ -27,7 +27,8 @@ uv pip install -r requirements.txt
 Edit `file_organizer/config.json`:
 ```json
 {
-  "scan_paths": ["~/Downloads", "~/Desktop"],
+  "scan_paths": ["~/Downloads"],
+  "scan_mode": "top_level_only",
   "organization_rules": {
     "Screenshots": "~/Pictures/Screenshots",
     "PDFs": "~/Documents/PDFs"
@@ -47,11 +48,6 @@ python main.py
 python main.py --server
 ```
 
-**Quick Test:**
-```bash
-python test_quick.py
-```
-
 ## 🔧 MCP Tools Exposed
 
 All functionality exposed as async MCP tools:
@@ -65,7 +61,34 @@ All functionality exposed as async MCP tools:
 7. **`restore_from_backup(manifest_path, dry_run)`** - Undo file moves from a backup
 8. **`reset_state()`** - Clear stored state
 
-## Claude Desktop Integration
+##  Deployment
+
+### Option 1: Cloud Deployment (Recommended)
+
+Deploy to mcp-agent cloud:
+
+```bash
+uvx mcp-agent login
+uvx mcp-agent deploy file-organizer
+```
+
+After deployment, add to your Claude Desktop config:
+
+```json
+{
+  "mcpServers": {
+    "file-organizer": {
+      "url": "https://your-deployment-url.deployments.mcp-agent.com/sse",
+      "transport": "sse",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+### Option 2: Local Claude Desktop Integration
 
 Add to `~/.claude/claude_desktop_config.json`:
 
@@ -83,7 +106,8 @@ Add to `~/.claude/claude_desktop_config.json`:
 Then ask Claude:
 - *"Scan my Downloads folder"*
 - *"Classify and organize my files"*
-- *"Execute the plan (dry run first)"*
+- *"List available backups"*
+- *"Restore from the most recent backup"*
 
 ## 📁 File Categories
 
@@ -125,17 +149,7 @@ Uses **direct Python I/O** (pathlib, shutil) for:
 - Atomic file moves
 - Performance
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
-
-# Documentation
-
-- **[USAGE.md](USAGE.md)** - Detailed usage guide with examples
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Architecture decisions
-- **[SUMMARY.md](SUMMARY.md)** - Project summary & highlights
-- **[CHECKLIST.md](CHECKLIST.md)** - Implementation checklist
-- **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - File structure
-
-##Safety Features
+## Safety Features
 
 - ✅ **Dry-run mode** - Test before executing
 - ✅ **Backup manifests** - Every move is recorded and reversible
@@ -196,27 +210,21 @@ Chaos Index: 8.6 → 2.1
 - Clean, modular architecture
 - Production-ready error handling
 
-## Dependencies
+## Troubleshooting
 
-```
-mcp-agent>=0.1.0    # Framework
-pydantic>=2.0.0     # Data models
-mcp>=1.0.0          # Protocol
-```
+**Issue:** Claude Desktop doesn't see the tools
+- Restart Claude Desktop completely
+- Check that the path in config is absolute, not relative
+- Verify `python main.py --server` runs without errors
 
-## Built With mcp-agent
+**Issue:** Permission errors
+- Check file permissions on scan_paths
+- Ensure Python has access to the directories
 
-This project demonstrates proper mcp-agent usage:
-- ✅ MCPApp initialization
-- ✅ @app.async_tool() decoration
-- ✅ create_mcp_server_for_app() exposure
-- ✅ async with app.run() context
-- ✅ mcp_agent.config.yaml structure
+**Issue:** No backups created
+- Backups are only created when `dry_run=False`
+- Check `~/.file_organizer_backups/` exists
 
 ## License
 
 MIT
-
----
-
-**Ready for Claude Desktop!** See [USAGE.md](USAGE.md) to get started.
