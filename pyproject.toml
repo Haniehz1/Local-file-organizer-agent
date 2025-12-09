@@ -1,9 +1,11 @@
 [project]
-name = "download-folder-manager"
+name = "file-organizer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Intelligent file organization system that scans, classifies, and organizes files with full reversibility"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "mcp-agent>=0.2.6",
+    "pydantic>=2.0.0",
+    "mcp>=1.0.0",
 ]

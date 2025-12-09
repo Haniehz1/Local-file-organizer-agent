@@ -1,8 +1,14 @@
 # MCP Agent Configuration
 name: file-organizer
-description: "Intelligent file organization system that scans, classifies, and organizes files"
+description: "Intelligent file organization system that scans, classifies, and organizes files. Provides 8 MCP tools: scan_files, classify_files, propose_organization, execute_plan, get_summary, list_backups, restore_from_backup, and reset_state."
+
+# Logger configuration
+logger:
+  transports: [console]
+  level: info
 
 # MCP Servers
 # None needed - we provide MCP tools, we don't consume them
 # This app uses direct Python file operations (pathlib, shutil)
-servers: {}
+mcp:
+  servers: {}

@@ -29,3 +29,4 @@ mcp_agent.secrets.yaml
 dist/
 build/
 *.egg-info/
+mcp_agent.deployed.*.yaml
