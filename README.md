@@ -2,17 +2,17 @@
 
 An intelligent file organization system built with the **mcp-agent framework**. Automatically scans, classifies, and organizes files in your Downloads, Desktop, and other directories.
 
-## ✨ Features
+##  Features
 
-- 🔍 **Smart Scanning**: Top-level only scanning (protects project folders) with SHA256 duplicate detection
-- 🏷️ **Intelligent Classification**: 12+ file categories with pattern and extension matching
-- 📋 **Safe Organization**: Always shows plan before executing changes
-- ↩️ **Fully Reversible**: Backup manifests allow complete undo of all file moves
-- 🔧 **MCP Server**: Exposes all functionality as MCP tools for Claude Desktop
-- 🛡️ **Safety First**: Dry-run mode, collision handling, error recovery
-- ⚡ **mcp-agent Native**: Built using proper `@app.async_tool()` patterns
+- **Smart Scanning**: Top-level only scanning (protects project folders) with SHA256 duplicate detection
+- **Intelligent Classification**: 12+ file categories with pattern and extension matching
+- **Safe Organization**: Always shows plan before executing changes
+- **Fully Reversible**: Backup manifests allow complete undo of all file moves
+- **MCP Server**: Exposes all functionality as MCP tools for Claude Desktop
+- **Safety First**: Dry-run mode, collision handling, error recovery
+- **mcp-agent Native**: Built using proper `@app.async_tool()` patterns
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Install Dependencies
 
@@ -65,7 +65,7 @@ All functionality exposed as async MCP tools:
 7. **`restore_from_backup(manifest_path, dry_run)`** - Undo file moves from a backup
 8. **`reset_state()`** - Clear stored state
 
-## 🤖 Claude Desktop Integration
+## Claude Desktop Integration
 
 Add to `~/.claude/claude_desktop_config.json`:
 
@@ -127,7 +127,7 @@ Uses **direct Python I/O** (pathlib, shutil) for:
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
-## 📖 Documentation
+# Documentation
 
 - **[USAGE.md](USAGE.md)** - Detailed usage guide with examples
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** - Architecture decisions
@@ -135,7 +135,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 - **[CHECKLIST.md](CHECKLIST.md)** - Implementation checklist
 - **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - File structure
 
-## ✅ Safety Features
+##Safety Features
 
 - ✅ **Dry-run mode** - Test before executing
 - ✅ **Backup manifests** - Every move is recorded and reversible
@@ -145,7 +145,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 - ✅ **Never overwrite** - Existing files safe
 - ✅ **State management** - Track workflow progress
 
-### 🔄 Reversibility
+### Reversibility
 
 When you execute file moves (not dry-run), a backup manifest is automatically created:
 
@@ -170,7 +170,7 @@ python -c 'from file_organizer.agents.backup import BackupManager;
 
 Manifests are stored in `~/.file_organizer_backups/`
 
-## 🎯 Example Workflow
+## Example Workflow
 
 ```bash
 $ python main.py
@@ -187,7 +187,7 @@ Step 5: Summary...
 Chaos Index: 8.6 → 2.1
 ```
 
-## 🔑 Key Features
+## Key Features
 
 - Built with **mcp-agent SDK** (proper patterns)
 - Uses `@app.async_tool()` decorators
@@ -196,7 +196,7 @@ Chaos Index: 8.6 → 2.1
 - Clean, modular architecture
 - Production-ready error handling
 
-## 📦 Dependencies
+## Dependencies
 
 ```
 mcp-agent>=0.1.0    # Framework
@@ -204,7 +204,7 @@ pydantic>=2.0.0     # Data models
 mcp>=1.0.0          # Protocol
 ```
 
-## 🌟 Built With mcp-agent
+## Built With mcp-agent
 
 This project demonstrates proper mcp-agent usage:
 - ✅ MCPApp initialization
@@ -213,7 +213,7 @@ This project demonstrates proper mcp-agent usage:
 - ✅ async with app.run() context
 - ✅ mcp_agent.config.yaml structure
 
-## 📝 License
+## License
 
 MIT
 
